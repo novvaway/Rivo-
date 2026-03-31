@@ -9,17 +9,11 @@ const Footer = () => {
     <footer className="bg-[#0A0A0A] text-white pt-12 pb-24 px-6 mt-20 border-t-4 border-[#FFDE00]" data-testid="footer">
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
-        <div 
-          className="flex flex-col items-center md:items-end mb-8 fade-in"
-          style={{ 
-            filter: 'brightness(0) invert(1)',
-            WebkitFilter: 'brightness(0) invert(1)'
-          }}
-        >
+        <div className="flex flex-col items-center md:items-end mb-8 fade-in">
           <img 
-            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/gt1ng9oc_1000319804.png"
             alt="RIVO - Wear Confidence"
-            className="h-28 md:h-32 w-auto object-contain"
+            className="h-24 md:h-28 w-auto object-contain"
           />
         </div>
 
