@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MessageCircle } from 'lucide-react';
+import { AiOutlineInstagram, AiOutlineMail, AiOutlineWhatsApp } from 'react-icons/ai';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -48,28 +49,31 @@ const Footer = () => {
 
           <div className="text-center md:text-right">
             <h4 className="text-lg font-bold mb-4">{t({ ar: 'تواصل معنا', en: 'Contact Us' })}</h4>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <a 
                 href="https://www.instagram.com/rivo.ps?igsh=MXZpOXgyOGtxbnhkeQ==" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="block text-gray-400 hover:text-[#FFDE00] transition-colors text-sm"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
               >
-                Instagram: @rivo.ps
+                <AiOutlineInstagram className="w-5 h-5" />
+                <span>@rivo.ps</span>
               </a>
               <a 
                 href="mailto:rivo12666@gmail.com"
-                className="block text-gray-400 hover:text-[#FFDE00] transition-colors text-sm"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
               >
-                {t({ ar: 'البريد الإلكتروني', en: 'Email' })}: rivo12666@gmail.com
+                <AiOutlineMail className="w-5 h-5" />
+                <span>rivo12666@gmail.com</span>
               </a>
               <a 
                 href="https://wa.me/972593606672"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-gray-400 hover:text-[#FFDE00] transition-colors text-sm"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
               >
-                {t({ ar: 'واتساب', en: 'WhatsApp' })}: +972 59-589-6200
+                <AiOutlineWhatsApp className="w-5 h-5" />
+                <span>+972 59-360-6672</span>
               </a>
             </div>
           </div>
@@ -94,7 +98,7 @@ const Footer = () => {
         href="https://wa.me/972593606672?text=مرحبا، أنا مهتم بمنتجات RIVO"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 left-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-50 animate-pulse"
+        className="fixed bottom-6 left-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-50"
         data-testid="whatsapp-fab"
         aria-label="WhatsApp"
       >
