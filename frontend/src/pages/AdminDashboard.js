@@ -188,7 +188,7 @@ const AdminDashboard = () => {
             <h1 className="text-2xl font-black" style={{ fontFamily: "'Cairo', sans-serif" }}>
               RIVO - لوحة التحكم
             </h1>
-            <p className="text-sm text-gray-400">مرحباً، {user?.name}</p>
+            <p className="text-sm text-gray-400">مرحباً، عبدالمنعم {user?.name}</p>
           </div>
           <button
             onClick={handleLogout}

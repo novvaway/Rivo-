@@ -223,7 +223,7 @@ const ProductDetailPage = () => {
                 data-testid="add-to-cart-btn"
               >
                 <ShoppingCart className="w-5 h-5" />
-                {t({ ar: 'إضافة إلم السلة', en: 'Add to Cart' })}
+                {t({ ar: 'إضافة إلى السلة', en: 'Add to Cart' })}
               </button>
               <button
                 onClick={() => toggleWishlist(product.id)}

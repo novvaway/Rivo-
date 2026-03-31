@@ -43,8 +43,11 @@ const Sidebar = ({ isOpen, onClose, onCategorySelect, selectedCategory }) => {
 
         {/* Logo */}
         <div className="flex flex-col items-end mb-8 mt-2">
-          <div className="text-2xl font-black text-[#D4AF37] tracking-wider">RIVO</div>
-          <div className="text-xs text-[#D4AF37] tracking-widest">WEAR CONFIDENCE</div>
+          <img 
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
+            alt="RIVO - Wear Confidence"
+            className="h-16 w-auto object-contain"
+          />
         </div>
 
         {/* Navigation */}

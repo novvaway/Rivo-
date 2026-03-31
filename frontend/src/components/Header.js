@@ -44,12 +44,15 @@ const Header = ({ onMenuToggle, onSearch }) => {
         <div className="flex justify-between items-center gap-2 md:gap-4">
           {/* Logo */}
           <div 
-            className="flex flex-col items-end cursor-pointer transition-transform duration-300 hover:scale-105"
+            className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-105"
             onClick={() => navigate('/')}
             data-testid="logo"
           >
-            <div className="text-xl md:text-2xl lg:text-3xl font-black text-[#D4AF37] tracking-wider">RIVO</div>
-            <div className="text-[8px] md:text-[10px] lg:text-xs text-[#D4AF37] tracking-widest">WEAR CONFIDENCE</div>
+            <img 
+              src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
+              alt="RIVO - Wear Confidence"
+              className="h-10 md:h-12 w-auto object-contain"
+            />
           </div>
 
           {/* Search Bar - Desktop */}
@@ -69,29 +72,9 @@ const Header = ({ onMenuToggle, onSearch }) => {
             />
           </form>
 
-          {/* Actions */}
+          {/* Actions - New Order: Cart, Language, Menu */}
           <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
-              data-testid="language-toggle-btn"
-              aria-label="Toggle Language"
-            >
-              <Globe className="w-5 h-5" />
-            </button>
-
-            {/* Menu Toggle */}
-            <button
-              onClick={onMenuToggle}
-              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
-              data-testid="sidebar-toggle-btn"
-              aria-label="Toggle Menu"
-            >
-              <Menu className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-
-            {/* Cart */}
+            {/* Cart - First */}
             <button
               onClick={() => navigate('/checkout')}
               className="relative hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
@@ -107,6 +90,26 @@ const Header = ({ onMenuToggle, onSearch }) => {
                   {cartCount}
                 </span>
               )}
+            </button>
+
+            {/* Language Toggle - Second */}
+            <button
+              onClick={toggleLanguage}
+              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
+              data-testid="language-toggle-btn"
+              aria-label="Toggle Language"
+            >
+              <Globe className="w-5 h-5" />
+            </button>
+
+            {/* Menu Toggle - Last (Left) */}
+            <button
+              onClick={onMenuToggle}
+              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
+              data-testid="sidebar-toggle-btn"
+              aria-label="Toggle Menu"
+            >
+              <Menu className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           </div>
         </div>

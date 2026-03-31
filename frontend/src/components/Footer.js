@@ -10,8 +10,11 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
         <div className="flex flex-col items-center md:items-end mb-8 fade-in">
-          <div className="text-3xl md:text-4xl font-black text-[#D4AF37] tracking-wider">RIVO</div>
-          <div className="text-sm md:text-base text-[#D4AF37] tracking-widest">WEAR CONFIDENCE</div>
+          <img 
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
+            alt="RIVO - Wear Confidence"
+            className="h-20 md:h-24 w-auto object-contain"
+          />
         </div>
 
         {/* Links */}
@@ -66,7 +69,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="block text-gray-400 hover:text-[#FFDE00] transition-colors text-sm"
               >
-                {t({ ar: 'واتساب', en: 'WhatsApp' })}: +972 59-360-6672
+                {t({ ar: 'واتساب', en: 'WhatsApp' })}: +972 59-589-6200
               </a>
             </div>
           </div>
@@ -74,14 +77,14 @@ const Footer = () => {
 
         {/* Platform Badge */}
         <div className="flex flex-col items-center justify-center gap-1 text-xs text-gray-500 pt-6 border-t border-white/10">
-          <span>{t({ ar: 'جميع الحقوق محفوظة © 2024 RIVO', en: '© 2024 RIVO. All rights reserved.' })}</span>
+          <span>{t({ ar: 'جميع الحقوق محفوظة © 2026 RIVO', en: '© 2024 RIVO. All rights reserved.' })}</span>
           <a 
             href="https://www.instagram.com/novaway.co?igsh=c2w1NjQ2OWMxcWY1"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[10px] text-gray-600 hover:text-[#FFDE00] transition-colors"
           >
-            made with novway.co
+            Made with Novaway.co
           </a>
         </div>
       </div>

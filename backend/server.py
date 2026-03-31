@@ -309,8 +309,8 @@ async def admin_get_orders(request: Request):
 # Startup: Seed Admin
 @app.on_event("startup")
 async def startup_event():
-    admin_email = os.environ.get("ADMIN_EMAIL", "admin@rivo.ps")
-    admin_password = os.environ.get("ADMIN_PASSWORD", "Rivo@Admin2024")
+    admin_email = os.environ.get("ADMIN_EMAIL", "aziz@rivo.ps")
+    admin_password = os.environ.get("ADMIN_PASSWORD", "Rivo@aziz2026")
     
     existing = await db.users.find_one({"email": admin_email})
     if existing is None:
