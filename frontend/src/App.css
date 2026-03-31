@@ -98,3 +98,13 @@ html {
     animation-duration: 0.4s;
   }
 }
+
+/* Hide Emergent Badge */
+a[href*="emergent"],
+div[class*="emergent"],
+[class*="Made with Emergent"],
+button[aria-label*="emergent" i] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

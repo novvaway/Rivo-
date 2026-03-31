@@ -73,8 +73,16 @@ const Footer = () => {
         </div>
 
         {/* Platform Badge */}
-        <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-6 border-t border-white/10">
+        <div className="flex flex-col items-center justify-center gap-1 text-xs text-gray-500 pt-6 border-t border-white/10">
           <span>{t({ ar: 'جميع الحقوق محفوظة © 2024 RIVO', en: '© 2024 RIVO. All rights reserved.' })}</span>
+          <a 
+            href="https://www.instagram.com/novaway.co?igsh=c2w1NjQ2OWMxcWY1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-gray-600 hover:text-[#FFDE00] transition-colors"
+          >
+            made with novway.co
+          </a>
         </div>
       </div>
 

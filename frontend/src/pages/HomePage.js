@@ -53,11 +53,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white fade-in" data-testid="home-page">
-      <Header 
-        onMenuToggle={() => setSidebarOpen(true)} 
-        onCategorySelect={handleCategorySelect}
-        selectedCategory={selectedCategory}
-      />
+      <Header onMenuToggle={() => setSidebarOpen(true)} />
       
       <Sidebar
         isOpen={sidebarOpen}
