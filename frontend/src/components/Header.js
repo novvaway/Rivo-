@@ -4,7 +4,7 @@ import { useCart } from '@/contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Search, ShoppingBag, Globe } from 'lucide-react';
 
-const Header = ({ onMenuToggle }) => {
+const Header = ({ onMenuToggle, onSearch }) => {
   const { language, toggleLanguage, t } = useLanguage();
   const { cartCount } = useCart();
   const navigate = useNavigate();
@@ -21,6 +21,16 @@ const Header = ({ onMenuToggle }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (onSearch) {
+      onSearch(searchQuery);
+    }
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+    if (onSearch) {
+      onSearch(value);
+    }
   };
 
   return (
@@ -52,7 +62,7 @@ const Header = ({ onMenuToggle }) => {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               placeholder={t({ ar: 'ابحث عن منتج...', en: 'Search for a product...' })}
               className="flex-1 bg-transparent text-black outline-none text-sm"
               data-testid="search-input"
@@ -110,7 +120,7 @@ const Header = ({ onMenuToggle }) => {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={t({ ar: 'ابحث عن منتج...', en: 'Search for a product...' })}
             className="flex-1 bg-transparent text-black outline-none text-sm"
           />

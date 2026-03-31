@@ -14,14 +14,20 @@ const API = `${BACKEND_URL}/api`;
 const HomePage = () => {
   const { t } = useLanguage();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('default');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchProducts();
   }, [selectedCategory, sortBy]);
+
+  useEffect(() => {
+    filterProducts();
+  }, [products, searchQuery]);
 
   const fetchProducts = async () => {
     try {
@@ -43,17 +49,40 @@ const HomePage = () => {
     }
   };
 
+  const filterProducts = () => {
+    if (!searchQuery.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const filtered = products.filter(product => 
+      product.name_ar.toLowerCase().includes(query) ||
+      product.name_en.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query)
+    );
+    setFilteredProducts(filtered);
+  };
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setSearchQuery('');
   };
 
   const handleSortChange = (sort) => {
     setSortBy(sort);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="min-h-screen bg-white fade-in" data-testid="home-page">
-      <Header onMenuToggle={() => setSidebarOpen(true)} />
+      <Header 
+        onMenuToggle={() => setSidebarOpen(true)} 
+        onSearch={handleSearch}
+      />
       
       <Sidebar
         isOpen={sidebarOpen}
@@ -80,16 +109,42 @@ const HomePage = () => {
               <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#FFDE00] border-t-transparent"></div>
               <div className="text-xl font-bold mt-4">{t({ ar: 'جاري التحميل...', en: 'Loading...' })}</div>
             </div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-12" data-testid="empty-state">
-              <div className="text-xl font-bold">{t({ ar: 'لا توجد منتجات', en: 'No products found' })}</div>
-            </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" data-testid="products-grid">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            <>
+              {searchQuery && (
+                <div className="mb-4 text-center">
+                  <p className="text-lg font-bold">
+                    {t({ ar: 'نتائج البحث عن:', en: 'Search results for:' })} "{searchQuery}"
+                    <span className="text-[#FFDE00] mr-2">
+                      ({filteredProducts.length} {t({ ar: 'منتج', en: 'products' })})
+                    </span>
+                  </p>
+                </div>
+              )}
+              
+              {filteredProducts.length === 0 ? (
+                <div className="text-center py-12" data-testid="empty-state">
+                  <div className="text-6xl mb-4">🔍</div>
+                  <div className="text-2xl font-bold mb-2">
+                    {searchQuery 
+                      ? t({ ar: 'لا توجد نتائج', en: 'No results found' })
+                      : t({ ar: 'لا توجد منتجات', en: 'No products found' })
+                    }
+                  </div>
+                  {searchQuery && (
+                    <p className="text-gray-600 mt-2">
+                      {t({ ar: 'جرب البحث بكلمات مختلفة', en: 'Try searching with different keywords' })}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" data-testid="products-grid">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
