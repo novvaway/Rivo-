@@ -1,0 +1,199 @@
+{
+  "theme": "light",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) - Brutalist Streetwear Variant",
+  "mood": "Raw, Confident, Urban, High-Performance",
+  "global_settings": {
+    "direction": "rtl",
+    "primary_language": "ar",
+    "supported_languages": ["ar", "en"]
+  },
+  "colors": {
+    "background": {
+      "default": "#FFFFFF",
+      "header_footer": "#0A0A0A",
+      "sidebar": "#0A0A0A"
+    },
+    "text": {
+      "primary": "#0A0A0A",
+      "inverse": "#FFFFFF",
+      "muted": "#555555"
+    },
+    "brand": {
+      "primary": "#FFDE00",
+      "primary_hover": "#E6C800",
+      "gold": "#D4AF37",
+      "red": "#FF3B30",
+      "red_hover": "#D92B22",
+      "whatsapp": "#25D366"
+    },
+    "border": {
+      "default": "#E5E5E5",
+      "strong": "#0A0A0A"
+    }
+  },
+  "typography": {
+    "font_family": {
+      "heading": "'Cabinet Grotesk', 'Cairo', sans-serif",
+      "body": "'IBM Plex Sans Arabic', 'Inter', sans-serif",
+      "logo": "'Anton', 'Cairo', sans-serif"
+    },
+    "sizes": {
+      "h1": "text-4xl md:text-5xl lg:text-6xl font-black tracking-tight",
+      "h2": "text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3": "text-xl md:text-2xl font-bold",
+      "body": "text-base font-normal leading-relaxed",
+      "small": "text-sm font-medium",
+      "tiny": "text-xs font-bold uppercase tracking-[0.1em]"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "product_grid": "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4",
+    "category_grid": "grid grid-cols-2 sm:grid-cols-4 gap-2",
+    "padding": {
+      "section": "py-12 md:py-20",
+      "card": "p-4"
+    },
+    "surface": {
+      "radius": "rounded-none",
+      "shadow": "shadow-none",
+      "brutalist_shadow": "shadow-[4px_4px_0_#0A0A0A]"
+    }
+  },
+  "components": {
+    "header": {
+      "style": "sticky top-0 z-50 bg-[#0A0A0A] text-white py-4 border-b-2 border-[#FFDE00]",
+      "layout": "flex justify-between items-center gap-4",
+      "logo": {
+        "text": "RIVO",
+        "subtext": "WEAR CONFIDENCE 1447",
+        "color": "text-[#D4AF37]",
+        "style": "flex flex-col items-end uppercase font-black"
+      },
+      "search": {
+        "bg": "bg-white",
+        "text": "text-black",
+        "placeholder": "إبحث عن منتج...",
+        "icon_color": "text-black",
+        "style": "flex-1 max-w-xl mx-4 rounded-full px-4 py-2 flex items-center gap-2"
+      },
+      "actions": {
+        "style": "flex items-center gap-4",
+        "cart_badge": "bg-[#FF3B30] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2"
+      }
+    },
+    "sidebar": {
+      "style": "fixed right-0 top-0 h-full w-64 bg-[#0A0A0A] text-white z-[60] p-6 shadow-2xl transition-transform",
+      "links": "text-lg font-bold py-3 border-b border-white/10 hover:text-[#FFDE00] transition-colors block"
+    },
+    "categories": {
+      "wrapper_style": "py-6 overflow-x-auto",
+      "item_style": "bg-[#FFDE00] text-[#0A0A0A] aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A]"
+    },
+    "filters": {
+      "wrapper_style": "flex flex-wrap gap-2 py-4",
+      "button_style": "bg-white text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-full px-6 py-2 text-sm font-bold flex items-center gap-2 hover:bg-[#0A0A0A] hover:text-white transition-colors"
+    },
+    "product_card": {
+      "wrapper_style": "group flex flex-col relative border-2 border-[#0A0A0A] bg-white transition-all hover:shadow-[8px_8px_0_#0A0A0A]",
+      "image_container": "relative aspect-[4/5] bg-gray-100 overflow-hidden border-b-2 border-[#0A0A0A]",
+      "image_style": "w-full h-full object-cover mix-blend-multiply",
+      "stickers": {
+        "comfort": "absolute bottom-2 left-2 bg-white text-black text-[10px] font-bold px-2 py-1 border border-black rounded-full",
+        "identity": "absolute bottom-2 left-[70px] bg-black text-white text-[10px] font-bold px-2 py-1 rounded-full",
+        "discount": "absolute top-2 left-2 bg-[#0A0A0A] text-white text-xs font-black px-2 py-1",
+        "heart": "absolute top-2 right-2 text-black bg-white/80 p-1.5 rounded-full hover:bg-[#FF3B30] hover:text-white transition-colors"
+      },
+      "content_style": "p-3 flex flex-col gap-1",
+      "title": "text-sm font-bold text-[#0A0A0A] uppercase truncate",
+      "price": {
+        "wrapper": "flex items-center gap-2 mt-1",
+        "current": "text-[#FF3B30] font-black text-lg",
+        "old": "text-gray-400 line-through text-sm font-bold"
+      },
+      "button_style": "mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-t-2 border-[#0A0A0A]"
+    },
+    "footer": {
+      "style": "bg-[#0A0A0A] text-white pt-12 pb-24 px-6 mt-20 border-t-4 border-[#FFDE00]",
+      "links_style": "text-gray-400 hover:text-white transition-colors text-sm",
+      "social_icons": "flex gap-4 mt-6",
+      "platform_badge": "flex items-center justify-center gap-2 text-xs text-gray-500 mt-12 pt-6 border-t border-white/10",
+      "whatsapp_fab": "fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform z-50"
+    }
+  },
+  "interactive_elements": {
+    "hover_states": "Hard background color swaps, sharp translations (-translate-y-1), and brutalist shadow expansions.",
+    "focus_states": "focus:outline-none focus:ring-4 focus:ring-[#FFDE00]",
+    "animations": "Framer motion for the sidebar slide-in (right-to-left) and micro-interactions on product hover."
+  },
+  "media": {
+    "hero_banner": {
+      "url": "https://images.pexels.com/photos/18131912/pexels-photo-18131912.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Two young men modeling streetwear fashion in an urban setting"
+    },
+    "products": [
+      {
+        "id": "hoodie-1",
+        "category": "HOODIES",
+        "name": "LOS ANGELES HOODIE",
+        "price": "80.00 ₪",
+        "old_price": "100.00 ₪",
+        "discount": "-20%",
+        "url": "https://images.unsplash.com/photo-1627135345338-a2024b1aea9d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHw0fHxzdHJlZXR3ZWFyJTIwaG9vZGllJTIwbW9kZWwlMjBpc29sYXRlZHxlbnwwfHx8fDE3NzQ5NzkyODN8MA&ixlib=rb-4.1.0&q=85",
+        "stickers": ["COMFORT", "IDENTITY"]
+      },
+      {
+        "id": "hoodie-2",
+        "category": "HOODIES",
+        "name": "ESSENTIAL PULLOVER",
+        "price": "75.00 ₪",
+        "old_price": "90.00 ₪",
+        "discount": "-17%",
+        "url": "https://images.unsplash.com/photo-1551625537-52901c7dc100?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwzfHxzdHJlZXR3ZWFyJTIwaG9vZGllJTIwbW9kZWwlMjBpc29sYXRlZHxlbnwwfHx8fDE3NzQ5NzkyODN8MA&ixlib=rb-4.1.0&q=85",
+        "stickers": ["COMFORT"]
+      },
+      {
+        "id": "polo-1",
+        "category": "POLO T-SHIRTS",
+        "name": "URBAN PINK POLO",
+        "price": "60.00 ₪",
+        "old_price": null,
+        "discount": null,
+        "url": "https://images.pexels.com/photos/17984123/pexels-photo-17984123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "stickers": ["IDENTITY"]
+      },
+      {
+        "id": "sweater-1",
+        "category": "SWEATERS",
+        "name": "NIGHT KNIT SWEATER",
+        "price": "110.00 ₪",
+        "old_price": "130.00 ₪",
+        "discount": "-15%",
+        "url": "https://images.unsplash.com/photo-1618924250456-0c7d405f2d53?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwyfHxzdHJlZXR3ZWFyJTIwc3dlYXRlciUyMG1vZGVsfGVufDB8fHx8MTc3NDk3OTI4NXww&ixlib=rb-4.1.0&q=85",
+        "stickers": ["COMFORT"]
+      },
+      {
+        "id": "tshirt-1",
+        "category": "T-SHIRTS",
+        "name": "OVERSIZED BLACK TEE",
+        "price": "45.00 ₪",
+        "old_price": null,
+        "discount": null,
+        "url": "https://images.unsplash.com/photo-1768696082704-c4e5593d9f27?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwyfHxibGFjayUyMHQtc2hpcnQlMjBzdHJlZXR3ZWFyJTIwbW9kZWx8ZW58MHx8fHwxNzc0OTc5MzA1fDA&ixlib=rb-4.1.0&q=85",
+        "stickers": ["IDENTITY", "NEW"]
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "This is an Arabic First (RTL) website. Enforce `dir='rtl'` on the root HTML or main wrapper.",
+    "Use strict brutalist aesthetics: sharp borders (border-2 border-black), heavy drop shadows (shadow-[4px_4px_0_#000]), and NO soft rounded corners (rounded-none).",
+    "Header must stick to the top. From right to left visually: Logo (Gold on Black) -> Search Bar (White) -> Icons (Hamburger, Login, Cart).",
+    "Cart badge must use the #FF3B30 color to indicate items, and show '0' if empty as requested.",
+    "Ensure the categories grid specifically renders 'T-SHIRTS' on a new line on smaller screens (e.g. col-span-full for the last item).",
+    "Product buttons should display 'تحديد أحد الخيارات' (Select an option) or 'إضافة إلى السلة' (Add to cart).",
+    "Sidebar should animate from the right edge. Use Framer Motion to slide it in.",
+    "In the Footer, include social media icons and the WhatsApp floating button at the bottom-left (due to RTL, visually left, or stick to right corner as universally expected).",
+    "Font choices are crucial: Use an Arabic display font like 'Cairo' or 'Tajawal' with bold/black weights for all headings, price tags, and yellow category boxes.",
+    "All interactive elements must have semantic data-testid attributes (e.g., data-testid='sidebar-toggle-btn')."
+  ]
+}
