@@ -44,16 +44,16 @@ const Header = ({ onMenuToggle, onSearch }) => {
         <div className="flex justify-between items-center gap-2 md:gap-4">
           {/* Logo */}
           <div 
-            className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-105"
+            className="flex flex-col items-end cursor-pointer transition-transform duration-300 hover:scale-105"
             onClick={() => navigate('/')}
             data-testid="logo"
           >
-            <img 
-              src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
-              alt="RIVO - Wear Confidence"
-              className="h-14 md:h-16 lg:h-20 w-auto object-contain"
-              style={{ mixBlendMode: 'screen' }}
-            />
+            <div className="text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-wider" style={{ fontFamily: "'Anton', 'Cairo', sans-serif" }}>
+              RIVO
+            </div>
+            <div className="text-xs md:text-sm text-white tracking-widest opacity-90">
+              WEAR CONFIDENCE
+            </div>
           </div>
 
           {/* Search Bar - Desktop */}

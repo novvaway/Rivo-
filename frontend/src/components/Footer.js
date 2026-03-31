@@ -10,11 +10,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
         <div className="flex flex-col items-center md:items-end mb-8 fade-in">
-          <img 
-            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
-            alt="RIVO - Wear Confidence"
-            className="h-20 md:h-24 w-auto object-contain"
-          />
+          <div className="text-4xl md:text-5xl font-black text-white tracking-wider" style={{ fontFamily: "'Anton', 'Cairo', sans-serif" }}>
+            RIVO
+          </div>
+          <div className="text-base md:text-lg text-white tracking-widest opacity-90">
+            WEAR CONFIDENCE
+          </div>
         </div>
 
         {/* Links */}
