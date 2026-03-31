@@ -47,11 +47,15 @@ const Header = ({ onMenuToggle, onSearch }) => {
             className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-105"
             onClick={() => navigate('/')}
             data-testid="logo"
+            style={{ 
+              filter: 'brightness(0) invert(1)',
+              WebkitFilter: 'brightness(0) invert(1)'
+            }}
           >
             <img 
-              src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/gt1ng9oc_1000319804.png"
+              src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/41q0mihp_1000319805.png"
               alt="RIVO - Wear Confidence"
-              className="h-12 md:h-14 lg:h-16 w-auto object-contain"
+              className="h-14 md:h-16 lg:h-20 w-auto object-contain"
             />
           </div>
 
