@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -26,45 +26,124 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+# Models
+class Product(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    name_ar: str
+    name_en: str
+    category: str
+    price: float
+    old_price: Optional[float] = None
+    discount_percent: Optional[int] = None
+    image_url: str
+    stickers: List[str] = []
+    sizes: List[str] = ["S", "M", "L", "XL", "XXL"]
+    colors: List[str] = ["أسود", "أبيض", "رمادي"]
+    description_ar: Optional[str] = None
+    description_en: Optional[str] = None
+    in_stock: bool = True
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class CartItem(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    product_id: str
+    product_name_ar: str
+    product_name_en: str
+    size: str
+    color: str
+    quantity: int = 1
+    price: float
+    image_url: str
 
-# Add your routes to the router instead of directly to app
+class Order(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    customer_name: str
+    customer_phone: str
+    customer_address: str
+    items: List[CartItem]
+    total_amount: float
+    payment_method: str  # "cash_on_delivery" or "bank_transfer"
+    notes: Optional[str] = None
+    status: str = "pending"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class OrderCreate(BaseModel):
+    customer_name: str
+    customer_phone: str
+    customer_address: str
+    items: List[CartItem]
+    total_amount: float
+    payment_method: str
+    notes: Optional[str] = None
+
+
+# Routes
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "RIVO - Wear Confidence API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
+@api_router.get("/products", response_model=List[Product])
+async def get_products(
+    category: Optional[str] = None,
+    search: Optional[str] = None,
+    sort_by: Optional[str] = "default"
+):
+    query = {}
     
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
+    if category and category != "all":
+        query["category"] = category
     
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    products = await db.products.find(query, {"_id": 0}).to_list(1000)
+    
+    # Search filter
+    if search:
+        search_lower = search.lower()
+        products = [
+            p for p in products 
+            if search_lower in p.get("name_ar", "").lower() 
+            or search_lower in p.get("name_en", "").lower()
+        ]
+    
+    # Sorting
+    if sort_by == "price_asc":
+        products.sort(key=lambda x: x.get("price", 0))
+    elif sort_by == "price_desc":
+        products.sort(key=lambda x: x.get("price", 0), reverse=True)
+    
+    return products
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+@api_router.get("/products/{product_id}", response_model=Product)
+async def get_product(product_id: str):
+    product = await db.products.find_one({"id": product_id}, {"_id": 0})
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
+@api_router.post("/orders", response_model=Order)
+async def create_order(order_input: OrderCreate):
+    order_dict = order_input.model_dump()
+    order_obj = Order(**order_dict)
     
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+    doc = order_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
     
-    return status_checks
+    await db.orders.insert_one(doc)
+    return order_obj
+
+@api_router.get("/orders", response_model=List[Order])
+async def get_orders():
+    orders = await db.orders.find({}, {"_id": 0}).to_list(1000)
+    
+    for order in orders:
+        if isinstance(order.get('created_at'), str):
+            order['created_at'] = datetime.fromisoformat(order['created_at'])
+    
+    return orders
 
 # Include the router in the main app
 app.include_router(api_router)
