@@ -17,9 +17,9 @@ const Footer = () => {
           }}
         >
           <img 
-            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/41q0mihp_1000319805.png"
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/9hpeisk4_1000319426.jpg"
             alt="RIVO - Wear Confidence"
-            className="h-28 md:h-32 w-auto object-contain"
+            className="h-32 md:h-36 w-auto object-contain"
           />
         </div>
 

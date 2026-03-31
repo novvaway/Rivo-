@@ -50,9 +50,9 @@ const Sidebar = ({ isOpen, onClose, onCategorySelect, selectedCategory }) => {
           }}
         >
           <img 
-            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/41q0mihp_1000319805.png"
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/9hpeisk4_1000319426.jpg"
             alt="RIVO - Wear Confidence"
-            className="h-20 w-auto object-contain"
+            className="h-24 w-auto object-contain"
           />
         </div>
 
