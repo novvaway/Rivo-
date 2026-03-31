@@ -51,7 +51,8 @@ const Header = ({ onMenuToggle, onSearch }) => {
             <img 
               src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/ti3qpbmp_587544907_17842604112661604_2147238118175767865_n.jpg"
               alt="RIVO - Wear Confidence"
-              className="h-10 md:h-12 w-auto object-contain"
+              className="h-14 md:h-16 lg:h-20 w-auto object-contain"
+              style={{ mixBlendMode: 'screen' }}
             />
           </div>
 
