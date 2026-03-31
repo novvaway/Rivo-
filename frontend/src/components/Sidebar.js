@@ -42,15 +42,9 @@ const Sidebar = ({ isOpen, onClose, onCategorySelect, selectedCategory }) => {
         </button>
 
         {/* Logo */}
-        <div 
-          className="flex flex-col items-end mb-8 mt-2"
-          style={{ 
-            filter: 'brightness(0) invert(1)',
-            WebkitFilter: 'brightness(0) invert(1)'
-          }}
-        >
+        <div className="flex flex-col items-end mb-8 mt-2">
           <img 
-            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/9hpeisk4_1000319426.jpg"
+            src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/sldpn8jr_1000319426.jpg"
             alt="RIVO - Wear Confidence"
             className="h-24 w-auto object-contain"
           />
