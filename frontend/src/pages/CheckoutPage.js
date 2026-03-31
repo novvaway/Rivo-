@@ -53,7 +53,7 @@ const CheckoutPage = () => {
 
       // Prepare WhatsApp message
       const message = generateWhatsAppMessage(orderData);
-      const whatsappUrl = `https://wa.me/972XXXXXXXXX?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = `https://wa.me/972593606672?text=${encodeURIComponent(message)}`;
       
       // Clear cart and redirect
       clearCart();

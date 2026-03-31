@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,30 +9,43 @@ const Header = ({ onMenuToggle }) => {
   const { cartCount } = useCart();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Will implement search functionality
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0A0A0A] text-white py-4 border-b-2 border-[#FFDE00]" data-testid="header">
+    <header 
+      className={`header-animate sticky top-0 z-50 bg-[#0A0A0A] text-white border-b-2 border-[#FFDE00] transition-all duration-300 ${
+        isScrolled ? 'py-2 shadow-lg' : 'py-4'
+      }`} 
+      data-testid="header"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center gap-2 md:gap-4">
           {/* Logo */}
           <div 
-            className="flex flex-col items-end cursor-pointer"
+            className="flex flex-col items-end cursor-pointer transition-transform duration-300 hover:scale-105"
             onClick={() => navigate('/')}
             data-testid="logo"
           >
-            <div className="text-2xl md:text-3xl font-black text-[#D4AF37] tracking-wider">RIVO</div>
-            <div className="text-[10px] md:text-xs text-[#D4AF37] tracking-widest">WEAR CONFIDENCE</div>
+            <div className="text-xl md:text-2xl lg:text-3xl font-black text-[#D4AF37] tracking-wider">RIVO</div>
+            <div className="text-[8px] md:text-[10px] lg:text-xs text-[#D4AF37] tracking-widest">WEAR CONFIDENCE</div>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar - Desktop */}
           <form 
             onSubmit={handleSearch}
-            className="hidden md:flex flex-1 max-w-xl mx-4 bg-white rounded-full px-4 py-2 items-center gap-2"
+            className="hidden md:flex flex-1 max-w-xl mx-4 bg-white rounded-full px-4 py-2 items-center gap-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFDE00]"
             data-testid="search-form"
           >
             <Search className="text-black w-5 h-5" />
@@ -47,11 +60,11 @@ const Header = ({ onMenuToggle }) => {
           </form>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="hover:text-[#FFDE00] transition-colors"
+              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="language-toggle-btn"
               aria-label="Toggle Language"
             >
@@ -61,24 +74,24 @@ const Header = ({ onMenuToggle }) => {
             {/* Menu Toggle */}
             <button
               onClick={onMenuToggle}
-              className="hover:text-[#FFDE00] transition-colors"
+              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="sidebar-toggle-btn"
               aria-label="Toggle Menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 md:w-6 md:h-6" />
             </button>
 
             {/* Cart */}
             <button
               onClick={() => navigate('/checkout')}
-              className="relative hover:text-[#FFDE00] transition-colors"
+              className="relative hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="cart-btn"
               aria-label="Shopping Cart"
             >
-              <ShoppingBag className="w-6 h-6" />
+              <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
               {cartCount > 0 && (
                 <span 
-                  className="bg-[#FF3B30] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2"
+                  className="bg-[#FF3B30] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2 animate-pulse"
                   data-testid="cart-count"
                 >
                   {cartCount}

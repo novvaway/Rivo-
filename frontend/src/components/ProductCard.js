@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div 
-      className="group flex flex-col relative border-2 border-[#0A0A0A] bg-white transition-all hover:shadow-[8px_8px_0_#0A0A0A] cursor-pointer"
+      className="product-card group flex flex-col relative border-2 border-[#0A0A0A] bg-white hover-lift hover:shadow-[8px_8px_0_#0A0A0A] cursor-pointer"
       data-testid={`product-card-${product.id}`}
     >
       {/* Image Container */}
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
         <img
           src={product.image_url}
           alt={productName}
-          className="w-full h-full object-cover mix-blend-multiply"
+          className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
         
@@ -57,8 +57,8 @@ const ProductCard = ({ product }) => {
             e.stopPropagation();
             toggleWishlist(product.id);
           }}
-          className={`absolute top-2 right-2 p-1.5 rounded-full transition-colors ${
-            isInWish ? 'bg-[#FF3B30] text-white' : 'bg-white/80 text-black hover:bg-[#FF3B30] hover:text-white'
+          className={`absolute top-2 right-2 p-1.5 rounded-full transition-all duration-300 ${
+            isInWish ? 'bg-[#FF3B30] text-white scale-110' : 'bg-white/80 text-black hover:bg-[#FF3B30] hover:text-white hover:scale-110'
           }`}
           data-testid={`wishlist-btn-${product.id}`}
           aria-label="Add to wishlist"
@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
         {/* Button */}
         <button
           onClick={() => navigate(`/product/${product.id}`)}
-          className="mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-t-2 border-[#0A0A0A]"
+          className="mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-all duration-300 border-t-2 border-[#0A0A0A]"
           data-testid={`select-options-btn-${product.id}`}
         >
           {t({ ar: 'تحديد أحد الخيارات', en: 'Select Options' })}

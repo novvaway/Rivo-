@@ -14,12 +14,12 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
   return (
     <div className="py-6 overflow-x-auto" data-testid="categories-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
           {categories.map((category, index) => (
             <button
               key={category.id}
               onClick={() => onCategorySelect(category.id)}
-              className={`bg-[#FFDE00] text-[#0A0A0A] aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A] ${
+              className={`category-item bg-[#FFDE00] text-[#0A0A0A] min-h-[120px] sm:min-h-[140px] md:aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A] active:translate-y-0 active:shadow-[2px_2px_0_#0A0A0A] ${
                 selectedCategory === category.id ? '-translate-y-1 shadow-[6px_6px_0_#0A0A0A]' : ''
               }`}
               data-testid={`category-btn-${category.id}`}

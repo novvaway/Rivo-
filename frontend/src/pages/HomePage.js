@@ -52,7 +52,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white" data-testid="home-page">
+    <div className="min-h-screen bg-white fade-in" data-testid="home-page">
       <Header onMenuToggle={() => setSidebarOpen(true)} />
       
       <Sidebar
@@ -77,14 +77,15 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
           {loading ? (
             <div className="text-center py-12" data-testid="loading-state">
-              <div className="text-xl font-bold">{t({ ar: 'جاري التحميل...', en: 'Loading...' })}</div>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#FFDE00] border-t-transparent"></div>
+              <div className="text-xl font-bold mt-4">{t({ ar: 'جاري التحميل...', en: 'Loading...' })}</div>
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-12" data-testid="empty-state">
               <div className="text-xl font-bold">{t({ ar: 'لا توجد منتجات', en: 'No products found' })}</div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" data-testid="products-grid">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" data-testid="products-grid">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
