@@ -24,14 +24,13 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
                     ? 'ring-2 ring-[#0A0A0A] ring-offset-2' 
                     : 'hover:bg-[#1a1a1a]'
                 }`}
-                style={{ fontFamily: "'Helvetica Neue', 'Arial', sans-serif", fontWeight: 600, fontSize: '14px', letterSpacing: '1px' }}
+                style={{ fontWeight: 600, fontSize: '14px', letterSpacing: '1px' }}
                 data-testid={`category-btn-${category.id}`}
               >
                 {category.name_ar}
               </button>
               <span 
-                className="text-[#333] text-xs uppercase tracking-wide"
-                style={{ fontFamily: "'Helvetica Neue', 'Arial', sans-serif", fontWeight: 400 }}
+                className="text-[#333] text-xs uppercase tracking-wide font-normal"
               >
                 {category.name_en}
               </span>

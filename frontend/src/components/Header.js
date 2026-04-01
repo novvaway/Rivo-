@@ -52,6 +52,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
               src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/sldpn8jr_1000319426.jpg"
               alt="RIVO - Wear Confidence"
               className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+              loading="eager"
             />
           </div>
 

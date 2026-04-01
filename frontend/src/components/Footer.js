@@ -15,6 +15,7 @@ const Footer = () => {
             src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/sldpn8jr_1000319426.jpg"
             alt="RIVO - Wear Confidence"
             className="h-32 md:h-36 w-auto object-contain"
+            loading="lazy"
           />
         </div>
 

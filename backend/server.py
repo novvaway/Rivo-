@@ -20,6 +20,8 @@ from auth_utils import (
     create_access_token, create_refresh_token,
     get_current_user, get_current_admin
 )
+from PIL import Image
+import io
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -285,12 +287,31 @@ async def admin_delete_product(product_id: str, request: Request):
 async def admin_upload_image(request: Request, file: UploadFile = File(...)):
     await get_current_admin(request, db)
     
-    # Read file content
     contents = await file.read()
     
-    # Convert to base64
-    base64_image = base64.b64encode(contents).decode('utf-8')
-    image_url = f"data:{file.content_type};base64,{base64_image}"
+    # Compress image using Pillow
+    try:
+        img = Image.open(io.BytesIO(contents))
+        # Convert RGBA to RGB for JPEG
+        if img.mode in ('RGBA', 'P'):
+            img = img.convert('RGB')
+        # Resize if too large (max 800px width)
+        max_width = 800
+        if img.width > max_width:
+            ratio = max_width / img.width
+            new_size = (max_width, int(img.height * ratio))
+            img = img.resize(new_size, Image.LANCZOS)
+        # Save as JPEG with compression
+        buffer = io.BytesIO()
+        img.save(buffer, format='JPEG', quality=75, optimize=True)
+        compressed = buffer.getvalue()
+        content_type = 'image/jpeg'
+    except Exception:
+        compressed = contents
+        content_type = file.content_type
+    
+    base64_image = base64.b64encode(compressed).decode('utf-8')
+    image_url = f"data:{content_type};base64,{base64_image}"
     
     return {"image_url": image_url}
 
@@ -345,6 +366,35 @@ async def startup_event():
         f.write(f"- POST /api/admin/products\\n")
         f.write(f"- PUT /api/admin/products/{{id}}\\n")
         f.write(f"- DELETE /api/admin/products/{{id}}\\n")
+    
+    # Compress existing large base64 images
+    products = await db.products.find({}).to_list(1000)
+    for p in products:
+        img_url = p.get("image_url", "")
+        if img_url.startswith("data:") and len(img_url) > 200_000:
+            try:
+                header, b64data = img_url.split(",", 1)
+                raw = base64.b64decode(b64data)
+                img = Image.open(io.BytesIO(raw))
+                if img.mode in ('RGBA', 'P'):
+                    img = img.convert('RGB')
+                if img.width > 800:
+                    ratio = 800 / img.width
+                    img = img.resize((800, int(img.height * ratio)), Image.LANCZOS)
+                buf = io.BytesIO()
+                img.save(buf, format='JPEG', quality=75, optimize=True)
+                new_b64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+                new_url = f"data:image/jpeg;base64,{new_b64}"
+                if len(new_url) < len(img_url):
+                    await db.products.update_one(
+                        {"id": p["id"]},
+                        {"$set": {"image_url": new_url}}
+                    )
+                    old_kb = len(img_url) / 1024
+                    new_kb = len(new_url) / 1024
+                    print(f"Compressed {p['name_ar']}: {old_kb:.0f}KB -> {new_kb:.0f}KB")
+            except Exception as e:
+                print(f"Could not compress {p.get('name_ar','')}: {e}")
 
 # Include router
 app.include_router(api_router)

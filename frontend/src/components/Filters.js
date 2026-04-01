@@ -14,8 +14,7 @@ const Filters = ({ sortBy, onSortChange }) => {
             <select
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value)}
-              className="appearance-none bg-white text-[#333] border border-[#ddd] rounded-xl px-6 py-3 text-sm pr-10 cursor-pointer w-full min-w-[220px] text-center"
-              style={{ fontFamily: "'Helvetica Neue', 'Arial', sans-serif", fontWeight: 400 }}
+              className="appearance-none bg-white text-[#333] border border-[#ddd] rounded-xl px-6 py-3 text-sm font-normal pr-10 cursor-pointer w-full min-w-[220px] text-center"
               data-testid="sort-select"
             >
               <option value="default">{t({ ar: 'ترتيب حسب:   افتراضي', en: 'Sort by: Default' })}</option>

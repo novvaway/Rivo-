@@ -30,7 +30,7 @@ const AdminLogin = () => {
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-[#0A0A0A] mb-2" style={{ fontFamily: "'Cairo', sans-serif" }}>
+          <h1 className="text-4xl font-black text-[#0A0A0A] mb-2">
             RIVO
           </h1>
           <p className="text-sm text-gray-600">لوحة التحكم</p>

@@ -185,7 +185,7 @@ const AdminDashboard = () => {
       <header className="bg-[#0A0A0A] text-white py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-black" style={{ fontFamily: "'Cairo', sans-serif" }}>
+            <h1 className="text-2xl font-black">
               RIVO - لوحة التحكم
             </h1>
             <p className="text-sm text-gray-400">مرحباً، عبدالمنعم {user?.name}</p>
