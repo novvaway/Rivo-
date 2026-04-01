@@ -35,98 +35,81 @@ const Header = ({ onMenuToggle, onSearch }) => {
 
   return (
     <header 
-      className={`header-animate sticky top-0 z-50 bg-[#0A0A0A] text-white border-b-2 border-white/20 transition-all duration-300 ${
-        isScrolled ? 'py-2 shadow-lg' : 'py-4'
+      className={`sticky top-0 z-50 bg-[#0A0A0A] text-white transition-all duration-300 ${
+        isScrolled ? 'py-2' : 'py-3'
       }`} 
       data-testid="header"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center gap-2 md:gap-4">
-          {/* Logo */}
+        {/* Row 1: Menu+Lang | Logo | Cart */}
+        <div className="flex justify-between items-center">
+          {/* Left: Menu + Language */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onMenuToggle}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              data-testid="sidebar-toggle-btn"
+              aria-label="Toggle Menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              data-testid="language-toggle-btn"
+              aria-label="Toggle Language"
+            >
+              <Globe className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Center: Logo */}
           <div 
-            className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-105"
+            className="absolute left-1/2 -translate-x-1/2 cursor-pointer"
             onClick={() => navigate('/')}
             data-testid="logo"
           >
             <img 
               src="https://customer-assets.emergentagent.com/job_wear-confidence-6/artifacts/sldpn8jr_1000319426.jpg"
-              alt="RIVO - Wear Confidence"
-              className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+              alt="RIVO"
+              className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-14 md:h-16'}`}
               loading="eager"
             />
           </div>
 
-          {/* Search Bar - Desktop */}
-          <form 
-            onSubmit={handleSearch}
-            className="hidden md:flex flex-1 max-w-xl mx-4 bg-white rounded-full px-4 py-2 items-center gap-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFFFFF]"
-            data-testid="search-form"
+          {/* Right: Cart */}
+          <button
+            onClick={() => navigate('/checkout')}
+            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            data-testid="cart-btn"
+            aria-label="Shopping Cart"
           >
-            <Search className="text-black w-5 h-5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder={t({ ar: 'ابحث عن منتج...', en: 'Search for a product...' })}
-              className="flex-1 bg-transparent text-black outline-none text-sm"
-              data-testid="search-input"
-            />
-          </form>
-
-          {/* Actions - Cart, Language, Menu */}
-          <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
-            {/* Cart */}
-            <button
-              onClick={() => navigate('/checkout')}
-              className="relative hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
-              data-testid="cart-btn"
-              aria-label="Shopping Cart"
-            >
-              <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
-              {cartCount > 0 && (
-                <span 
-                  className="bg-[#FF3B30] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2 animate-pulse"
-                  data-testid="cart-count"
-                >
-                  {cartCount}
-                </span>
-              )}
-            </button>
-
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
-              data-testid="language-toggle-btn"
-              aria-label="Toggle Language"
-            >
-              <Globe className="w-5 h-5" />
-            </button>
-
-            {/* Menu Toggle */}
-            <button
-              onClick={onMenuToggle}
-              className="hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
-              data-testid="sidebar-toggle-btn"
-              aria-label="Toggle Menu"
-            >
-              <Menu className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-          </div>
+            <ShoppingBag className="w-5 h-5" />
+            {cartCount > 0 && (
+              <span 
+                className="bg-[#FF3B30] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full absolute -top-1 -right-1"
+                data-testid="cart-count"
+              >
+                {cartCount}
+              </span>
+            )}
+          </button>
         </div>
 
-        {/* Mobile Search */}
+        {/* Row 2: Search Bar */}
         <form 
           onSubmit={handleSearch}
-          className="md:hidden flex mt-3 bg-white rounded-full px-4 py-2 items-center gap-2"
+          className="flex mt-3 bg-white rounded-full px-4 py-2.5 items-center gap-2"
+          data-testid="search-form"
         >
-          <Search className="text-black w-4 h-4" />
+          <Search className="text-gray-400 w-4 h-4 shrink-0" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={t({ ar: 'ابحث عن منتج...', en: 'Search for a product...' })}
             className="flex-1 bg-transparent text-black outline-none text-sm"
+            data-testid="search-input"
           />
         </form>
       </div>
