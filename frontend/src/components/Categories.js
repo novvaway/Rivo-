@@ -16,19 +16,26 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
           {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => onCategorySelect(category.id)}
-              className={`bg-[#0A0A0A] text-white rounded-2xl py-6 px-4 flex items-center justify-center text-center uppercase tracking-wide transition-all duration-200 active:scale-[0.97] ${
-                selectedCategory === category.id 
-                  ? 'ring-2 ring-white ring-offset-2 ring-offset-white' 
-                  : 'hover:bg-[#1a1a1a]'
-              }`}
-              style={{ fontFamily: "'Anton', 'Helvetica Neue', Arial, sans-serif", fontSize: '15px', letterSpacing: '1.5px' }}
-              data-testid={`category-btn-${category.id}`}
-            >
-              {category.name_ar}
-            </button>
+            <div key={category.id} className="flex flex-col items-center gap-2">
+              <button
+                onClick={() => onCategorySelect(category.id)}
+                className={`w-full bg-[#0A0A0A] text-white rounded-2xl min-h-[100px] sm:min-h-[120px] flex items-center justify-center p-4 text-center uppercase transition-all duration-200 active:scale-[0.97] ${
+                  selectedCategory === category.id 
+                    ? 'ring-2 ring-[#0A0A0A] ring-offset-2' 
+                    : 'hover:bg-[#1a1a1a]'
+                }`}
+                style={{ fontFamily: "'Helvetica Neue', 'Arial', sans-serif", fontWeight: 600, fontSize: '14px', letterSpacing: '1px' }}
+                data-testid={`category-btn-${category.id}`}
+              >
+                {category.name_ar}
+              </button>
+              <span 
+                className="text-[#333] text-xs uppercase tracking-wide"
+                style={{ fontFamily: "'Helvetica Neue', 'Arial', sans-serif", fontWeight: 400 }}
+              >
+                {category.name_en}
+              </span>
+            </div>
           ))}
         </div>
       </div>

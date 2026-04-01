@@ -25,8 +25,8 @@ E-commerce website for buying and selling hoodies named "RIVO". Arabic-primary b
 - Theme migration: Yellow to Monochrome
 - Footer with social links (Instagram, Email, WhatsApp)
 - Sidebar menu
-- [2026-04-01] Navbar restructured: two-row default (Menu+Lang top, Search+Cart bottom), compact single-row on scroll (Menu+Search+Cart)
-- [2026-04-01] Categories redesigned: black rounded boxes with Anton bold font
+- [2026-04-01] Categories redesigned: lighter font (Helvetica Neue), text label below each box, clean rounded style
+- [2026-04-01] Filter/Sort dropdown restyled: centered, light border, rounded corners matching reference
 
 ## Admin Credentials
 - Email: admin@rivo.ps / Password: Rivo@Admin2024
