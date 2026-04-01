@@ -332,7 +332,7 @@ async def admin_get_orders(request: Request):
 async def startup_event():
     admin_email = os.environ.get("ADMIN_EMAIL", "aziz@rivo.ps")
     admin_password = os.environ.get("ADMIN_PASSWORD", "Rivo@aziz2026")
-    
+
     existing = await db.users.find_one({"email": admin_email})
     if existing is None:
         hashed = hash_password(admin_password)
@@ -346,27 +346,30 @@ async def startup_event():
         print(f"✅ Admin created: {admin_email}")
     elif not verify_password(admin_password, existing["password_hash"]):
         await db.users.update_one(
-            {"email": admin_email}, 
+            {"email": admin_email},
             {"$set": {"password_hash": hash_password(admin_password)}}
         )
         print(f"✅ Admin password updated: {admin_email}")
-    
-    # Write credentials to file
-    Path("memory").mkdir(exist_ok=True)
-with open("memory/test_credentials.md", "w") as f:
-        f.write(f"# Admin Credentials\\n\\n")
-        f.write(f"**Email**: {admin_email}\\n")
-        f.write(f"**Password**: {admin_password}\\n")
-        f.write(f"**Role**: admin\\n\\n")
-        f.write(f"## Endpoints\\n")
-        f.write(f"- POST /api/auth/login\\n")
-        f.write(f"- GET /api/auth/me\\n")
-        f.write(f"- POST /api/auth/logout\\n")
-        f.write(f"- GET /api/admin/products\\n")
-        f.write(f"- POST /api/admin/products\\n")
-        f.write(f"- PUT /api/admin/products/{{id}}\\n")
-        f.write(f"- DELETE /api/admin/products/{{id}}\\n")
-    
+
+    # Write credentials to file (inside project, not /app)
+    memory_dir = Path("memory")
+    memory_dir.mkdir(exist_ok=True)
+    creds_path = memory_dir / "test_credentials.md"
+
+    with creds_path.open("w") as f:
+        f.write(f"# Admin Credentials\n\n")
+        f.write(f"**Email**: {admin_email}\n")
+        f.write(f"**Password**: {admin_password}\n")
+        f.write(f"**Role**: admin\n\n")
+        f.write(f"## Endpoints\n")
+        f.write(f"- POST /api/auth/login\n")
+        f.write(f"- GET /api/auth/me\n")
+        f.write(f"- POST /api/auth/logout\n")
+        f.write(f"- GET /api/admin/products\n")
+        f.write(f"- POST /api/admin/products\n")
+        f.write(f"- PUT /api/admin/products/{{id}}\n")
+        f.write(f"- DELETE /api/admin/products/{{id}}\n")
+
     # Compress existing large base64 images
     products = await db.products.find({}).to_list(1000)
     for p in products:
