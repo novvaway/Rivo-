@@ -21,6 +21,7 @@ const CheckoutPage = () => {
   const [couponCode, setCouponCode] = useState('');
   const [couponApplied, setCouponApplied] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [shippingZone, setShippingZone] = useState('');
   const [orderForm, setOrderForm] = useState({
     customer_name: '',
     customer_phone: '',
@@ -28,6 +29,14 @@ const CheckoutPage = () => {
     payment_method: 'cash_on_delivery',
     notes: ''
   });
+
+  const shippingZones = [
+    { id: 'west_bank', name_ar: 'الضفة الغربية', name_en: 'West Bank', price: 20 },
+    { id: 'inside', name_ar: 'الداخل (48)', name_en: 'Inside (48)', price: 30 },
+    { id: 'jerusalem', name_ar: 'القدس', name_en: 'Jerusalem', price: 25 },
+  ];
+
+  const shippingCost = shippingZones.find(z => z.id === shippingZone)?.price || 0;
 
   const handleQuantityChange = (itemId, newQuantity) => {
     updateCartItemQuantity(itemId, newQuantity);
@@ -47,13 +56,18 @@ const CheckoutPage = () => {
     }
   };
 
-  const finalTotal = cartTotal - discount;
+  const finalTotal = cartTotal - discount + shippingCost;
 
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
 
     if (!orderForm.customer_name || !orderForm.customer_phone || !orderForm.customer_address) {
       alert(t({ ar: 'يرجى ملء جميع الحقول المطلوبة', en: 'Please fill in all required fields' }));
+      return;
+    }
+
+    if (!shippingZone) {
+      alert(t({ ar: 'يرجى اختيار منطقة التوصيل', en: 'Please select a delivery zone' }));
       return;
     }
 
@@ -100,6 +114,10 @@ const CheckoutPage = () => {
     
     if (discount > 0) {
       message += `${t({ ar: 'الخصم', en: 'Discount' })}: -${discount.toFixed(2)} ₪\n`;
+    }
+    const selectedZone = shippingZones.find(z => z.id === shippingZone);
+    if (selectedZone) {
+      message += `${t({ ar: 'منطقة التوصيل', en: 'Delivery Zone' })}: ${language === 'ar' ? selectedZone.name_ar : selectedZone.name_en} (${selectedZone.price} ₪)\n`;
     }
     message += `*${t({ ar: 'المجموع الكلي', en: 'Total' })}*: ${orderData.total_amount.toFixed(2)} ₪\n\n`;
     message += `${t({ ar: 'طريقة الدفع', en: 'Payment Method' })}: ${orderData.payment_method === 'cash_on_delivery' ? t({ ar: 'دفع عند الاستلام', en: 'Cash on Delivery' }) : t({ ar: 'تحويل بنكي', en: 'Bank Transfer' })}\n`;
@@ -213,12 +231,31 @@ const CheckoutPage = () => {
 
             {/* Right Column - Summary */}
             <div className="lg:col-span-1 space-y-4">
-              {/* Shipping Header */}
-              <div className="bg-[#0A0A0A] text-white rounded-2xl p-4 flex items-center gap-3">
-                <MapPin className="w-5 h-5 shrink-0" />
-                <div>
-                  <p className="font-semibold text-sm">{t({ ar: 'التوصيل', en: 'Delivery' })}</p>
-                  <p className="text-xs text-gray-300">{t({ ar: 'توصيل لجميع المناطق', en: 'Delivery to all areas' })}</p>
+              {/* Shipping Zone Selector */}
+              <div className="bg-white rounded-2xl p-4 shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+                <div className="flex items-center gap-2 mb-3">
+                  <MapPin className="w-4 h-4 text-[#0A0A0A]" />
+                  <span className="text-sm font-semibold text-[#0A0A0A]">{t({ ar: 'منطقة التوصيل', en: 'Delivery Zone' })}</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-3">{t({ ar: 'توصيل لجميع المناطق - اختر منطقتك', en: 'Delivery to all areas - choose your zone' })}</p>
+                <div className="space-y-2">
+                  {shippingZones.map((zone) => (
+                    <button
+                      key={zone.id}
+                      onClick={() => setShippingZone(zone.id)}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
+                        shippingZone === zone.id
+                          ? 'bg-[#0A0A0A] text-white'
+                          : 'bg-[#f5f5f5] text-[#333] hover:bg-[#eee]'
+                      }`}
+                      data-testid={`shipping-zone-${zone.id}`}
+                    >
+                      <span className="font-medium">{language === 'ar' ? zone.name_ar : zone.name_en}</span>
+                      <span className={`font-bold ${shippingZone === zone.id ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                        ₪ {zone.price}
+                      </span>
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -278,7 +315,12 @@ const CheckoutPage = () => {
                   )}
                   <div className="flex justify-between text-gray-600">
                     <span>{t({ ar: 'الشحن', en: 'Shipping' })}</span>
-                    <span className="font-medium text-[#0A0A0A]">{t({ ar: 'مجاني', en: 'Free' })}</span>
+                    <span className="font-medium text-[#0A0A0A]">
+                      {shippingZone 
+                        ? `₪ ${shippingCost.toFixed(2)}` 
+                        : t({ ar: 'اختر المنطقة', en: 'Select zone' })
+                      }
+                    </span>
                   </div>
                   <hr className="border-gray-100" />
                   <div className="flex justify-between pt-1">

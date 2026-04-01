@@ -49,32 +49,32 @@ const Footer = () => {
           </div>
 
           <div className="text-center md:text-right">
-            <h4 className="text-lg font-bold mb-4">{t({ ar: 'تواصل معنا', en: 'Contact Us' })}</h4>
-            <div className="space-y-3">
+            <h4 className="text-lg font-bold mb-4">{t({ ar: 'معلومات التواصل', en: 'Contact Info' })}</h4>
+            <div className="flex items-center gap-4 justify-center md:justify-end">
               <a 
                 href="https://www.instagram.com/rivo.ps?igsh=MXZpOXgyOGtxbnhkeQ==" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-gray-400 hover:text-white hover:bg-white/20 transition-all"
+                aria-label="Instagram"
               >
                 <AiOutlineInstagram className="w-5 h-5" />
-                <span>@rivo.ps</span>
               </a>
               <a 
                 href="mailto:rivo12666@gmail.com"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-gray-400 hover:text-white hover:bg-white/20 transition-all"
+                aria-label="Email"
               >
                 <AiOutlineMail className="w-5 h-5" />
-                <span>rivo12666@gmail.com</span>
               </a>
               <a 
                 href="https://wa.me/972593606672"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-gray-400 hover:text-white hover:bg-white/20 transition-all"
+                aria-label="WhatsApp"
               >
                 <AiOutlineWhatsApp className="w-5 h-5" />
-                <span>+972 59-360-6672</span>
               </a>
             </div>
           </div>

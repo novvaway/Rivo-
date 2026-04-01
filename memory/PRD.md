@@ -29,6 +29,9 @@ E-commerce website for buying and selling hoodies named "RIVO". Arabic-primary b
 - [2026-04-01] Filter/Sort dropdown restyled: centered, light border, rounded corners matching reference
 - [2026-04-01] Performance: Removed Google Fonts (system fonts), image compression on upload (Pillow), lazy loading, compressed existing base64 images (24MB→435KB)
 
+- [2026-04-01] Shipping zones: West Bank (₪20), Inside 48 (₪30), Jerusalem (₪25) with zone selector in checkout
+- [2026-04-01] Footer contact section: icons only (no text), side by side in circles
+
 ## Admin Credentials
 - Email: admin@rivo.ps / Password: Rivo@Admin2024
 - Alt: aziz@rivo.ps / Password: Rivo@aziz2026
