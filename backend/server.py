@@ -353,7 +353,7 @@ async def startup_event():
     
     # Write credentials to file
     Path("memory").mkdir(exist_ok=True)
-    with open("/app/memory/test_credentials.md", "w") as f:
+with open("memory/test_credentials.md", "w") as f:
         f.write(f"# Admin Credentials\\n\\n")
         f.write(f"**Email**: {admin_email}\\n")
         f.write(f"**Password**: {admin_password}\\n")
