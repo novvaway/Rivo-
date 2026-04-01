@@ -5,7 +5,7 @@ import { useCart } from '@/contexts/CartContext';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
-import { Trash2, ShoppingBag } from 'lucide-react';
+import { Trash2, ShoppingBag, MapPin, Tag, Check } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -18,6 +18,9 @@ const CheckoutPage = () => {
   
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [discount, setDiscount] = useState(0);
   const [orderForm, setOrderForm] = useState({
     customer_name: '',
     customer_phone: '',
@@ -34,6 +37,18 @@ const CheckoutPage = () => {
     removeFromCart(itemId);
   };
 
+  const handleApplyCoupon = () => {
+    if (couponCode.trim().toUpperCase() === 'RIVO10') {
+      setDiscount(cartTotal * 0.1);
+      setCouponApplied(true);
+    } else {
+      setCouponApplied(false);
+      setDiscount(0);
+    }
+  };
+
+  const finalTotal = cartTotal - discount;
+
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
 
@@ -46,16 +61,14 @@ const CheckoutPage = () => {
       const orderData = {
         ...orderForm,
         items: cart,
-        total_amount: cartTotal
+        total_amount: finalTotal
       };
 
       await axios.post(`${API}/orders`, orderData);
 
-      // Prepare WhatsApp message
       const message = generateWhatsAppMessage(orderData);
       const whatsappUrl = `https://wa.me/972593606672?text=${encodeURIComponent(message)}`;
       
-      // Clear cart and redirect
       clearCart();
       window.open(whatsappUrl, '_blank');
       
@@ -85,6 +98,9 @@ const CheckoutPage = () => {
       message += `   ${t({ ar: 'السعر', en: 'Price' })}: ${(item.price * item.quantity).toFixed(2)} ₪\n\n`;
     });
     
+    if (discount > 0) {
+      message += `${t({ ar: 'الخصم', en: 'Discount' })}: -${discount.toFixed(2)} ₪\n`;
+    }
     message += `*${t({ ar: 'المجموع الكلي', en: 'Total' })}*: ${orderData.total_amount.toFixed(2)} ₪\n\n`;
     message += `${t({ ar: 'طريقة الدفع', en: 'Payment Method' })}: ${orderData.payment_method === 'cash_on_delivery' ? t({ ar: 'دفع عند الاستلام', en: 'Cash on Delivery' }) : t({ ar: 'تحويل بنكي', en: 'Bank Transfer' })}\n`;
     
@@ -96,7 +112,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white" data-testid="checkout-page">
+    <div className="min-h-screen bg-[#f5f5f5]" data-testid="checkout-page">
       <Header onMenuToggle={() => setSidebarOpen(true)} />
       
       <Sidebar
@@ -106,161 +122,234 @@ const CheckoutPage = () => {
         selectedCategory="all"
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-3xl md:text-4xl font-black text-[#0A0A0A] mb-8 uppercase">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] mb-6">
           {t({ ar: 'سلة التسوق', en: 'Shopping Cart' })}
         </h1>
 
         {cart.length === 0 ? (
-          <div className="text-center py-20" data-testid="empty-cart">
-            <ShoppingBag className="w-24 h-24 mx-auto text-gray-300 mb-4" />
-            <p className="text-xl font-bold text-gray-600 mb-6">
+          <div className="text-center py-20 bg-white rounded-2xl shadow-sm" data-testid="empty-cart">
+            <ShoppingBag className="w-20 h-20 mx-auto text-gray-200 mb-4" />
+            <p className="text-lg text-gray-500 mb-6">
               {t({ ar: 'سلة التسوق فارغة', en: 'Your cart is empty' })}
             </p>
             <button
               onClick={() => navigate('/')}
-              className="bg-[#0A0A0A] text-white px-8 py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
+              className="bg-[#0A0A0A] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#222] transition-colors"
               data-testid="continue-shopping-btn"
             >
               {t({ ar: 'متابعة التسوق', en: 'Continue Shopping' })}
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-3">
               {cart.map((item) => (
                 <div 
                   key={item.id} 
-                  className="flex gap-4 border-2 border-[#0A0A0A] p-4 bg-white"
+                  className="flex gap-4 bg-white rounded-2xl p-4 shadow-[0_1px_8px_rgba(0,0,0,0.06)]"
                   data-testid={`cart-item-${item.id}`}
                 >
-                  <img
-                    src={item.image_url}
-                    alt={language === 'ar' ? item.product_name_ar : item.product_name_en}
-                    className="w-24 h-24 object-cover border border-gray-200"
-                  />
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg">
-                      {language === 'ar' ? item.product_name_ar : item.product_name_en}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {t({ ar: 'المقاس', en: 'Size' })}: {item.size} | {t({ ar: 'اللون', en: 'Color' })}: {item.color}
-                    </p>
-                    <p className="text-lg font-black text-[#FF3B30] mt-1">
-                      {item.price.toFixed(2)} ₪
-                    </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
-                        data-testid={`decrease-qty-${item.id}`}
-                      >
-                        -
-                      </button>
-                      <span className="font-bold w-8 text-center" data-testid={`item-qty-${item.id}`}>
-                        {item.quantity}
+                  {/* Product Image - left side, gray background */}
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 bg-[#f0f0f0] rounded-xl overflow-hidden shrink-0">
+                    <img
+                      src={item.image_url}
+                      alt={language === 'ar' ? item.product_name_ar : item.product_name_en}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Middle - name, details, price */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-[#0A0A0A] text-sm sm:text-base truncate">
+                        {language === 'ar' ? item.product_name_ar : item.product_name_en}
+                      </h3>
+                      <p className="text-xs text-gray-400 mt-0.5">
+                        {item.size} / {item.color}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="font-bold text-[#0A0A0A] text-base">
+                        ₪ {(item.price * item.quantity).toFixed(2)}
                       </span>
-                      <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
-                        data-testid={`increase-qty-${item.id}`}
-                      >
-                        +
-                      </button>
-                      <button
-                        onClick={() => handleRemoveItem(item.id)}
-                        className="mr-auto text-[#FF3B30] hover:text-red-700 transition-colors"
-                        data-testid={`remove-item-${item.id}`}
-                        aria-label="Remove item"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
+                      {/* Quantity controls + delete */}
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center bg-[#0A0A0A] rounded-lg overflow-hidden">
+                          <button
+                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            className="w-8 h-8 flex items-center justify-center text-white text-sm font-medium hover:bg-[#222] transition-colors"
+                            data-testid={`decrease-qty-${item.id}`}
+                          >
+                            -
+                          </button>
+                          <span className="w-8 text-center text-white text-sm font-semibold" data-testid={`item-qty-${item.id}`}>
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                            className="w-8 h-8 flex items-center justify-center text-white text-sm font-medium hover:bg-[#222] transition-colors"
+                            data-testid={`increase-qty-${item.id}`}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleRemoveItem(item.id)}
+                          className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors"
+                          data-testid={`remove-item-${item.id}`}
+                          aria-label="Remove item"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="border-2 border-[#0A0A0A] p-6 bg-white sticky top-24">
-                <h2 className="text-xl font-black mb-4 uppercase">
+            {/* Right Column - Summary */}
+            <div className="lg:col-span-1 space-y-4">
+              {/* Shipping Header */}
+              <div className="bg-[#0A0A0A] text-white rounded-2xl p-4 flex items-center gap-3">
+                <MapPin className="w-5 h-5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">{t({ ar: 'التوصيل', en: 'Delivery' })}</p>
+                  <p className="text-xs text-gray-300">{t({ ar: 'توصيل لجميع المناطق', en: 'Delivery to all areas' })}</p>
+                </div>
+              </div>
+
+              {/* Coupon Section */}
+              <div className="bg-white rounded-2xl p-4 shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+                <div className="flex items-center gap-2 mb-3">
+                  <Tag className="w-4 h-4 text-gray-500" />
+                  <span className="text-sm font-semibold text-gray-700">{t({ ar: 'كود الخصم', en: 'Coupon Code' })}</span>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    placeholder={t({ ar: 'أدخل الكود', en: 'Enter code' })}
+                    className="flex-1 border border-[#0A0A0A] rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-[#0A0A0A]"
+                    data-testid="coupon-input"
+                    disabled={couponApplied}
+                  />
+                  <button
+                    onClick={handleApplyCoupon}
+                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                      couponApplied
+                        ? 'bg-gray-100 text-[#0A0A0A]'
+                        : 'bg-[#0A0A0A] text-white hover:bg-[#222]'
+                    }`}
+                    data-testid="apply-coupon-btn"
+                    disabled={couponApplied}
+                  >
+                    {couponApplied ? (
+                      <span className="flex items-center gap-1">
+                        <Check className="w-4 h-4" />
+                        Applied
+                      </span>
+                    ) : (
+                      t({ ar: 'تطبيق', en: 'Apply' })
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Order Summary */}
+              <div className="bg-white rounded-2xl p-5 shadow-[0_1px_8px_rgba(0,0,0,0.06)] sticky top-24">
+                <h2 className="text-lg font-bold text-[#0A0A0A] mb-4">
                   {t({ ar: 'ملخص الطلب', en: 'Order Summary' })}
                 </h2>
-                <div className="space-y-2 mb-6">
-                  <div className="flex justify-between">
-                    <span>{t({ ar: 'عدد المنتجات', en: 'Items' })}</span>
-                    <span className="font-bold">{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between text-gray-600">
+                    <span>{t({ ar: 'المجموع الفرعي', en: 'Subtotal' })} ({cart.reduce((s, i) => s + i.quantity, 0)} {t({ ar: 'منتج', en: 'items' })})</span>
+                    <span className="font-medium text-[#0A0A0A]">₪ {cartTotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-xl font-black border-t-2 border-[#0A0A0A] pt-2">
-                    <span>{t({ ar: 'المجموع', en: 'Total' })}</span>
-                    <span className="text-[#FF3B30]" data-testid="cart-total">{cartTotal.toFixed(2)} ₪</span>
+                  {discount > 0 && (
+                    <div className="flex justify-between text-[#8B0000]">
+                      <span>{t({ ar: 'الخصم', en: 'Discount' })}</span>
+                      <span className="font-medium">- ₪ {discount.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-gray-600">
+                    <span>{t({ ar: 'الشحن', en: 'Shipping' })}</span>
+                    <span className="font-medium text-[#0A0A0A]">{t({ ar: 'مجاني', en: 'Free' })}</span>
+                  </div>
+                  <hr className="border-gray-100" />
+                  <div className="flex justify-between pt-1">
+                    <span className="text-base font-bold text-[#0A0A0A]">{t({ ar: 'الإجمالي', en: 'Total' })}</span>
+                    <span className="text-xl font-bold text-[#0A0A0A]" data-testid="cart-total">₪ {finalTotal.toFixed(2)}</span>
                   </div>
                 </div>
+
                 <button
                   onClick={() => setShowOrderForm(!showOrderForm)}
-                  className="w-full bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
+                  className="w-full bg-[#0A0A0A] text-white py-3.5 rounded-2xl font-bold text-base mt-5 hover:bg-[#222] transition-colors"
                   data-testid="proceed-checkout-btn"
                 >
-                  {t({ ar: 'إتمام الطلب', en: 'Proceed to Checkout' })}
+                  {t({ ar: 'إتمام الشراء', en: 'CHECKOUT' })}
                 </button>
               </div>
 
               {/* Order Form */}
               {showOrderForm && (
-                <div className="border-2 border-[#0A0A0A] p-6 bg-white mt-6" data-testid="order-form">
-                  <h2 className="text-xl font-black mb-4 uppercase">
+                <div className="bg-white rounded-2xl p-5 shadow-[0_1px_8px_rgba(0,0,0,0.06)]" data-testid="order-form">
+                  <h2 className="text-lg font-bold text-[#0A0A0A] mb-4">
                     {t({ ar: 'معلومات التوصيل', en: 'Delivery Information' })}
                   </h2>
-                  <form onSubmit={handleSubmitOrder} className="space-y-4">
+                  <form onSubmit={handleSubmitOrder} className="space-y-3">
                     <div>
-                      <label className="block text-sm font-bold mb-1">
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
                         {t({ ar: 'الاسم *', en: 'Name *' })}
                       </label>
                       <input
                         type="text"
                         value={orderForm.customer_name}
                         onChange={(e) => setOrderForm({ ...orderForm, customer_name: e.target.value })}
-                        className="w-full border-2 border-[#0A0A0A] px-3 py-2"
+                        className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#0A0A0A] transition-colors"
                         required
                         data-testid="customer-name-input"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold mb-1">
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
                         {t({ ar: 'رقم الهاتف *', en: 'Phone Number *' })}
                       </label>
                       <input
                         type="tel"
                         value={orderForm.customer_phone}
                         onChange={(e) => setOrderForm({ ...orderForm, customer_phone: e.target.value })}
-                        className="w-full border-2 border-[#0A0A0A] px-3 py-2"
+                        className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#0A0A0A] transition-colors"
                         required
                         data-testid="customer-phone-input"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold mb-1">
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
                         {t({ ar: 'العنوان *', en: 'Address *' })}
                       </label>
                       <textarea
                         value={orderForm.customer_address}
                         onChange={(e) => setOrderForm({ ...orderForm, customer_address: e.target.value })}
-                        className="w-full border-2 border-[#0A0A0A] px-3 py-2"
-                        rows="3"
+                        className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#0A0A0A] transition-colors"
+                        rows="2"
                         required
                         data-testid="customer-address-input"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold mb-1">
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
                         {t({ ar: 'طريقة الدفع', en: 'Payment Method' })}
                       </label>
                       <select
                         value={orderForm.payment_method}
                         onChange={(e) => setOrderForm({ ...orderForm, payment_method: e.target.value })}
-                        className="w-full border-2 border-[#0A0A0A] px-3 py-2"
+                        className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#0A0A0A] transition-colors"
                         data-testid="payment-method-select"
                       >
                         <option value="cash_on_delivery">
@@ -272,20 +361,20 @@ const CheckoutPage = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-bold mb-1">
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
                         {t({ ar: 'ملاحظات', en: 'Notes' })}
                       </label>
                       <textarea
                         value={orderForm.notes}
                         onChange={(e) => setOrderForm({ ...orderForm, notes: e.target.value })}
-                        className="w-full border-2 border-[#0A0A0A] px-3 py-2"
+                        className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#0A0A0A] transition-colors"
                         rows="2"
                         data-testid="order-notes-input"
                       />
                     </div>
                     <button
                       type="submit"
-                      className="w-full bg-[#25D366] text-white py-3 font-bold uppercase hover:bg-[#1fad50] transition-colors border-2 border-[#0A0A0A]"
+                      className="w-full bg-[#0A0A0A] text-white py-3.5 rounded-2xl font-bold text-base hover:bg-[#222] transition-colors flex items-center justify-center gap-2"
                       data-testid="submit-order-btn"
                     >
                       {t({ ar: 'إرسال الطلب عبر واتساب', en: 'Send Order via WhatsApp' })}
