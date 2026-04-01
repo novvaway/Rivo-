@@ -35,7 +35,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
 
   return (
     <header 
-      className={`header-animate sticky top-0 z-50 bg-[#0A0A0A] text-white border-b-2 border-[#FFDE00] transition-all duration-300 ${
+      className={`header-animate sticky top-0 z-50 bg-[#0A0A0A] text-white border-b-2 border-white/20 transition-all duration-300 ${
         isScrolled ? 'py-2 shadow-lg' : 'py-4'
       }`} 
       data-testid="header"
@@ -58,7 +58,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
           {/* Search Bar - Desktop */}
           <form 
             onSubmit={handleSearch}
-            className="hidden md:flex flex-1 max-w-xl mx-4 bg-white rounded-full px-4 py-2 items-center gap-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFDE00]"
+            className="hidden md:flex flex-1 max-w-xl mx-4 bg-white rounded-full px-4 py-2 items-center gap-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFFFFF]"
             data-testid="search-form"
           >
             <Search className="text-black w-5 h-5" />
@@ -77,7 +77,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
             {/* Cart - First */}
             <button
               onClick={() => navigate('/checkout')}
-              className="relative hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
+              className="relative hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="cart-btn"
               aria-label="Shopping Cart"
             >
@@ -95,7 +95,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
             {/* Language Toggle - Second */}
             <button
               onClick={toggleLanguage}
-              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
+              className="hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="language-toggle-btn"
               aria-label="Toggle Language"
             >
@@ -105,7 +105,7 @@ const Header = ({ onMenuToggle, onSearch }) => {
             {/* Menu Toggle - Last (Left) */}
             <button
               onClick={onMenuToggle}
-              className="hover:text-[#FFDE00] transition-all duration-300 hover:scale-110 active:scale-95"
+              className="hover:text-[#FFFFFF] transition-all duration-300 hover:scale-110 active:scale-95"
               data-testid="sidebar-toggle-btn"
               aria-label="Toggle Menu"
             >

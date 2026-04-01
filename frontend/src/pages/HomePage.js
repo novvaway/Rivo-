@@ -106,7 +106,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
           {loading ? (
             <div className="text-center py-12" data-testid="loading-state">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#FFDE00] border-t-transparent"></div>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#FFFFFF] border-t-transparent"></div>
               <div className="text-xl font-bold mt-4">{t({ ar: 'جاري التحميل...', en: 'Loading...' })}</div>
             </div>
           ) : (
@@ -115,7 +115,7 @@ const HomePage = () => {
                 <div className="mb-4 text-center">
                   <p className="text-lg font-bold">
                     {t({ ar: 'نتائج البحث عن:', en: 'Search results for:' })} "{searchQuery}"
-                    <span className="text-[#FFDE00] mr-2">
+                    <span className="text-[#FFFFFF] mr-2">
                       ({filteredProducts.length} {t({ ar: 'منتج', en: 'products' })})
                     </span>
                   </p>

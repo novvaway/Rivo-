@@ -53,7 +53,7 @@ const AdminLogin = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#FFDE00]"
+                className="w-full px-4 py-3 border-2 border-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#FFFFFF]"
                 required
                 disabled={loading}
               />
@@ -65,7 +65,7 @@ const AdminLogin = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#FFDE00]"
+                className="w-full px-4 py-3 border-2 border-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#FFFFFF]"
                 required
                 disabled={loading}
               />
@@ -74,7 +74,7 @@ const AdminLogin = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A] disabled:opacity-50"
+              className="w-full bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A] disabled:opacity-50"
             >
               {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
             </button>
@@ -84,7 +84,7 @@ const AdminLogin = () => {
         <div className="text-center mt-6">
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-gray-600 hover:text-[#FFDE00] transition-colors"
+            className="text-sm text-gray-600 hover:text-[#FFFFFF] transition-colors"
           >
             العودة للموقع
           </button>

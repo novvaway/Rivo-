@@ -7,7 +7,7 @@ const Footer = () => {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-[#0A0A0A] text-white pt-12 pb-24 px-6 mt-20 border-t-4 border-[#FFDE00]" data-testid="footer">
+    <footer className="bg-[#0A0A0A] text-white pt-12 pb-24 px-6 mt-20 border-t-4 border-white/20" data-testid="footer">
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
         <div className="flex flex-col items-center md:items-end mb-8 fade-in">
@@ -24,12 +24,12 @@ const Footer = () => {
             <h4 className="text-lg font-bold mb-4">{t({ ar: 'روابط سريعة', en: 'Quick Links' })}</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#FFDE00] transition-colors text-sm">
+                <a href="#" className="text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm">
                   {t({ ar: 'جميع المنتجات', en: 'All Products' })}
                 </a>
               </li>
               <li>
-                <a href="/checkout" className="text-gray-400 hover:text-[#FFDE00] transition-colors text-sm">
+                <a href="/checkout" className="text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm">
                   {t({ ar: 'سلة التسوق', en: 'Shopping Cart' })}
                 </a>
               </li>
@@ -40,7 +40,7 @@ const Footer = () => {
             <h4 className="text-lg font-bold mb-4">{t({ ar: 'خدمة العملاء', en: 'Customer Service' })}</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#FFDE00] transition-colors text-sm">
+                <a href="#" className="text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm">
                   {t({ ar: 'سياسة الإرجاع والاستبدال', en: 'Return & Exchange Policy' })}
                 </a>
               </li>
@@ -54,14 +54,14 @@ const Footer = () => {
                 href="https://www.instagram.com/rivo.ps?igsh=MXZpOXgyOGtxbnhkeQ==" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
               >
                 <AiOutlineInstagram className="w-5 h-5" />
                 <span>@rivo.ps</span>
               </a>
               <a 
                 href="mailto:rivo12666@gmail.com"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
               >
                 <AiOutlineMail className="w-5 h-5" />
                 <span>rivo12666@gmail.com</span>
@@ -70,7 +70,7 @@ const Footer = () => {
                 href="https://wa.me/972593606672"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#FFDE00] transition-colors text-sm justify-center md:justify-end"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FFFFFF] transition-colors text-sm justify-center md:justify-end"
               >
                 <AiOutlineWhatsApp className="w-5 h-5" />
                 <span>+972 59-360-6672</span>
@@ -86,7 +86,7 @@ const Footer = () => {
             href="https://www.instagram.com/novaway.co?igsh=c2w1NjQ2OWMxcWY1"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[10px] text-gray-600 hover:text-[#FFDE00] transition-colors"
+            className="text-[10px] text-gray-600 hover:text-[#FFFFFF] transition-colors"
           >
             Made with Novaway.co
           </a>

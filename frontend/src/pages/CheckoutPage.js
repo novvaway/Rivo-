@@ -119,7 +119,7 @@ const CheckoutPage = () => {
             </p>
             <button
               onClick={() => navigate('/')}
-              className="bg-[#0A0A0A] text-white px-8 py-3 font-bold uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
+              className="bg-[#0A0A0A] text-white px-8 py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
               data-testid="continue-shopping-btn"
             >
               {t({ ar: 'متابعة التسوق', en: 'Continue Shopping' })}
@@ -153,7 +153,7 @@ const CheckoutPage = () => {
                     <div className="flex items-center gap-2 mt-2">
                       <button
                         onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFDE00] transition-colors"
+                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
                         data-testid={`decrease-qty-${item.id}`}
                       >
                         -
@@ -163,7 +163,7 @@ const CheckoutPage = () => {
                       </span>
                       <button
                         onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFDE00] transition-colors"
+                        className="w-8 h-8 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
                         data-testid={`increase-qty-${item.id}`}
                       >
                         +
@@ -200,7 +200,7 @@ const CheckoutPage = () => {
                 </div>
                 <button
                   onClick={() => setShowOrderForm(!showOrderForm)}
-                  className="w-full bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
+                  className="w-full bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
                   data-testid="proceed-checkout-btn"
                 >
                   {t({ ar: 'إتمام الطلب', en: 'Proceed to Checkout' })}

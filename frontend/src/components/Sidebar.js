@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen, onClose, onCategorySelect, selectedCategory }) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 left-4 text-white hover:text-[#FFDE00] transition-colors"
+          className="absolute top-4 left-4 text-white hover:text-[#FFFFFF] transition-colors"
           data-testid="sidebar-close-btn"
           aria-label="Close Menu"
         >
@@ -59,8 +59,8 @@ const Sidebar = ({ isOpen, onClose, onCategorySelect, selectedCategory }) => {
                 onCategorySelect(category.id);
                 onClose();
               }}
-              className={`w-full text-right text-lg font-bold py-3 border-b border-white/10 hover:text-[#FFDE00] transition-colors block ${
-                selectedCategory === category.id ? 'text-[#FFDE00]' : ''
+              className={`w-full text-right text-lg font-bold py-3 border-b border-white/10 hover:text-[#FFFFFF] transition-colors block ${
+                selectedCategory === category.id ? 'text-[#FFFFFF]' : ''
               }`}
               data-testid={`sidebar-category-${category.id}`}
             >

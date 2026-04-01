@@ -19,7 +19,7 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
             <button
               key={category.id}
               onClick={() => onCategorySelect(category.id)}
-              className={`category-item bg-[#FFDE00] text-[#0A0A0A] min-h-[120px] sm:min-h-[140px] md:aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A] active:translate-y-0 active:shadow-[2px_2px_0_#0A0A0A] ${
+              className={`category-item bg-white text-[#0A0A0A] min-h-[120px] sm:min-h-[140px] md:aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A] active:translate-y-0 active:shadow-[2px_2px_0_#0A0A0A] ${
                 selectedCategory === category.id ? '-translate-y-1 shadow-[6px_6px_0_#0A0A0A]' : ''
               }`}
               style={{ fontFamily: "'Anton', 'Cairo', sans-serif" }}

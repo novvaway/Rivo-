@@ -36,7 +36,7 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #FFDE00;
+    background: #FFFFFF;
     border-radius: 5px;
 }
 
@@ -46,12 +46,12 @@ code {
 
 /* Selection Color */
 ::selection {
-    background: #FFDE00;
+    background: #FFFFFF;
     color: #0A0A0A;
 }
 
 ::-moz-selection {
-    background: #FFDE00;
+    background: #FFFFFF;
     color: #0A0A0A;
 }
 

@@ -174,7 +174,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#FFDE00] border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#FFFFFF] border-t-transparent"></div>
       </div>
     );
   }
@@ -227,7 +227,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">المنتجات</h2>
           <button
             onClick={openAddModal}
-            className="flex items-center gap-2 bg-[#FFDE00] text-[#0A0A0A] px-6 py-3 font-bold border-2 border-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-colors"
+            className="flex items-center gap-2 bg-[#FFFFFF] text-[#0A0A0A] px-6 py-3 font-bold border-2 border-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-colors"
           >
             <Plus className="w-5 h-5" />
             إضافة منتج جديد
@@ -238,7 +238,7 @@ const AdminDashboard = () => {
         <div className="bg-white border-2 border-[#0A0A0A] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-[#FFDE00]">
+              <thead className="bg-[#FFFFFF]">
                 <tr>
                   <th className="px-4 py-3 text-right text-sm font-black">الصورة</th>
                   <th className="px-4 py-3 text-right text-sm font-black">الاسم</th>
@@ -320,7 +320,7 @@ const AdminDashboard = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white border-2 border-[#0A0A0A] w-full max-w-2xl my-8">
-            <div className="bg-[#FFDE00] px-6 py-4 flex justify-between items-center border-b-2 border-[#0A0A0A]">
+            <div className="bg-[#FFFFFF] px-6 py-4 flex justify-between items-center border-b-2 border-[#0A0A0A]">
               <h3 className="text-xl font-black">
                 {editingProduct ? 'تعديل المنتج' : 'إضافة منتج جديد'}
               </h3>
@@ -434,7 +434,7 @@ const AdminDashboard = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
+                  className="flex-1 bg-[#0A0A0A] text-white py-3 font-bold uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A]"
                   disabled={uploading || !formData.image_url}
                 >
                   {editingProduct ? 'تحديث' : 'إضافة'}

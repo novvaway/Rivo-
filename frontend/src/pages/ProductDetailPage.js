@@ -156,7 +156,7 @@ const ProductDetailPage = () => {
                     className={`px-6 py-2 border-2 border-[#0A0A0A] font-bold transition-colors ${
                       selectedSize === size
                         ? 'bg-[#0A0A0A] text-white'
-                        : 'bg-white text-[#0A0A0A] hover:bg-[#FFDE00]'
+                        : 'bg-white text-[#0A0A0A] hover:bg-[#FFFFFF]'
                     }`}
                     data-testid={`size-btn-${size}`}
                   >
@@ -179,7 +179,7 @@ const ProductDetailPage = () => {
                     className={`px-6 py-2 border-2 border-[#0A0A0A] font-bold transition-colors ${
                       selectedColor === color
                         ? 'bg-[#0A0A0A] text-white'
-                        : 'bg-white text-[#0A0A0A] hover:bg-[#FFDE00]'
+                        : 'bg-white text-[#0A0A0A] hover:bg-[#FFFFFF]'
                     }`}
                     data-testid={`color-btn-${color}`}
                   >
@@ -197,7 +197,7 @@ const ProductDetailPage = () => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFDE00] transition-colors"
+                  className="w-10 h-10 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
                   data-testid="quantity-decrease-btn"
                 >
                   -
@@ -207,7 +207,7 @@ const ProductDetailPage = () => {
                 </span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFDE00] transition-colors"
+                  className="w-10 h-10 border-2 border-[#0A0A0A] font-bold hover:bg-[#FFFFFF] transition-colors"
                   data-testid="quantity-increase-btn"
                 >
                   +
@@ -219,7 +219,7 @@ const ProductDetailPage = () => {
             <div className="flex gap-3">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-[#0A0A0A] text-white py-4 font-bold text-lg uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A] flex items-center justify-center gap-2"
+                className="flex-1 bg-[#0A0A0A] text-white py-4 font-bold text-lg uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-colors border-2 border-[#0A0A0A] flex items-center justify-center gap-2"
                 data-testid="add-to-cart-btn"
               >
                 <ShoppingCart className="w-5 h-5" />

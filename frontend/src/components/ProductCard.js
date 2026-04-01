@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
         {/* Button */}
         <button
           onClick={() => navigate(`/product/${product.id}`)}
-          className="mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFDE00] hover:text-[#0A0A0A] transition-all duration-300 border-t-2 border-[#0A0A0A]"
+          className="mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-all duration-300 border-t-2 border-[#0A0A0A]"
           data-testid={`select-options-btn-${product.id}`}
         >
           {t({ ar: 'تحديد أحد الخيارات', en: 'Select Options' })}
