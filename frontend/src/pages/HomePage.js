@@ -92,6 +92,32 @@ const HomePage = () => {
       />
 
       <main>
+        {/* Custom Design Banner */}
+        <div className="px-4 sm:px-6 lg:px-8 pt-5 pb-2">
+          <div className="max-w-7xl mx-auto">
+            <a
+              href="https://wa.me/972593606672?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%AE%D8%A7%D8%B5"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-[#0A0A0A] text-white rounded-2xl p-5 relative overflow-hidden group"
+              data-testid="custom-design-banner"
+            >
+              <div className="absolute inset-0 bg-gradient-to-l from-white/5 to-transparent" />
+              <div className="relative flex items-center justify-between">
+                <div>
+                  <p className="text-lg font-bold leading-tight">
+                    {t({ ar: 'اطلب تصميمك الخاص', en: 'Order Your Custom Design' })}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {t({ ar: 'صمّم قطعتك الفريدة معنا', en: 'Create your unique piece with us' })}
+                  </p>
+                </div>
+                <span className="text-2xl text-white/30 group-hover:text-white/60 transition-colors font-light">&larr;</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
         <Categories 
           onCategorySelect={handleCategorySelect}
           selectedCategory={selectedCategory}
