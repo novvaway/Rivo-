@@ -12,17 +12,19 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="py-6 overflow-x-auto" data-testid="categories-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-          {categories.map((category, index) => (
+    <div className="py-5 px-4 sm:px-6 lg:px-8" data-testid="categories-section">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => onCategorySelect(category.id)}
-              className={`category-item bg-white text-[#0A0A0A] min-h-[120px] sm:min-h-[140px] md:aspect-square flex items-center justify-center p-4 text-center font-black text-sm md:text-base border-2 border-[#0A0A0A] shadow-[4px_4px_0_#0A0A0A] uppercase transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#0A0A0A] active:translate-y-0 active:shadow-[2px_2px_0_#0A0A0A] ${
-                selectedCategory === category.id ? '-translate-y-1 shadow-[6px_6px_0_#0A0A0A]' : ''
+              className={`bg-[#0A0A0A] text-white rounded-2xl py-6 px-4 flex items-center justify-center text-center uppercase tracking-wide transition-all duration-200 active:scale-[0.97] ${
+                selectedCategory === category.id 
+                  ? 'ring-2 ring-white ring-offset-2 ring-offset-white' 
+                  : 'hover:bg-[#1a1a1a]'
               }`}
-              style={{ fontFamily: "'Anton', 'Cairo', sans-serif" }}
+              style={{ fontFamily: "'Anton', 'Helvetica Neue', Arial, sans-serif", fontSize: '15px', letterSpacing: '1.5px' }}
               data-testid={`category-btn-${category.id}`}
             >
               {category.name_ar}
