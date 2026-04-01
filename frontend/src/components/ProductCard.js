@@ -14,85 +14,79 @@ const ProductCard = ({ product }) => {
 
   return (
     <div 
-      className="product-card group flex flex-col relative border-2 border-[#0A0A0A] bg-white hover-lift hover:shadow-[8px_8px_0_#0A0A0A] cursor-pointer"
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.12)] transition-shadow duration-300 cursor-pointer"
       data-testid={`product-card-${product.id}`}
     >
-      {/* Image Container */}
+      {/* Image Area - 65% of card */}
       <div 
-        className="relative aspect-[4/5] bg-gray-100 overflow-hidden border-b-2 border-[#0A0A0A]"
+        className="relative aspect-[4/5] bg-[#f5f5f5] overflow-hidden"
         onClick={() => navigate(`/product/${product.id}`)}
       >
         <img
           src={product.image_url}
           alt={productName}
-          className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
-        
-        {/* Stickers */}
-        {product.stickers && product.stickers.map((sticker, index) => (
-          <span
-            key={sticker}
-            className={`absolute bottom-2 text-[10px] font-bold px-2 py-1 rounded-full ${
-              sticker === 'COMFORT' || sticker === 'NEW'
-                ? 'bg-white text-black border border-black'
-                : 'bg-black text-white'
-            }`}
-            style={{ left: `${10 + index * 60}px` }}
-          >
-            {sticker}
-          </span>
-        ))}
 
         {/* Discount Badge */}
         {product.discount_percent && (
-          <span className="absolute top-2 left-2 bg-[#0A0A0A] text-white text-xs font-black px-2 py-1">
-            -{product.discount_percent}%
+          <span className="absolute top-3 left-3 bg-black/80 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+            {product.discount_percent}%-
           </span>
         )}
 
-        {/* Heart Icon */}
+        {/* Heart Icon - white circle */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             toggleWishlist(product.id);
           }}
-          className={`absolute top-2 right-2 p-1.5 rounded-full transition-all duration-300 ${
-            isInWish ? 'bg-[#FF3B30] text-white scale-110' : 'bg-white/80 text-black hover:bg-[#FF3B30] hover:text-white hover:scale-110'
+          className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${
+            isInWish 
+              ? 'bg-red-500 text-white' 
+              : 'bg-white/80 backdrop-blur-sm text-gray-500 hover:bg-white hover:text-red-500'
           }`}
           data-testid={`wishlist-btn-${product.id}`}
           aria-label="Add to wishlist"
         >
           <Heart className="w-4 h-4" fill={isInWish ? 'currentColor' : 'none'} />
         </button>
+
+        {/* Stickers */}
+        {product.stickers && product.stickers.length > 0 && (
+          <div className="absolute bottom-3 left-3 flex gap-1.5">
+            {product.stickers.map((sticker) => (
+              <span
+                key={sticker}
+                className="bg-white/90 backdrop-blur-sm text-[10px] font-medium text-gray-700 px-2 py-0.5 rounded-full"
+              >
+                {sticker}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Content */}
-      <div className="p-3 flex flex-col gap-1">
-        <h3 className="text-sm font-bold text-[#0A0A0A] uppercase truncate">
+      {/* Product Info - clean bottom section */}
+      <div 
+        className="p-3.5 flex flex-col gap-1"
+        onClick={() => navigate(`/product/${product.id}`)}
+      >
+        <h3 className="text-sm text-[#333] font-normal truncate">
           {productName}
         </h3>
 
-        {/* Price */}
-        <div className="flex items-center gap-2 mt-1">
-          <span className="text-[#FF3B30] font-black text-lg">
-            {product.price.toFixed(2)} ₪
+        <div className="flex items-center gap-2">
+          <span className="text-[#0A0A0A] font-bold text-base">
+            ₪ {product.price.toFixed(2)}
           </span>
           {product.old_price && (
-            <span className="text-gray-400 line-through text-sm font-bold">
-              {product.old_price.toFixed(2)} ₪
+            <span className="text-gray-400 line-through text-xs">
+              ₪ {product.old_price.toFixed(2)}
             </span>
           )}
         </div>
-
-        {/* Button */}
-        <button
-          onClick={() => navigate(`/product/${product.id}`)}
-          className="mt-3 w-full bg-[#0A0A0A] text-white py-2.5 font-bold text-sm uppercase hover:bg-[#FFFFFF] hover:text-[#0A0A0A] transition-all duration-300 border-t-2 border-[#0A0A0A]"
-          data-testid={`select-options-btn-${product.id}`}
-        >
-          {t({ ar: 'تحديد أحد الخيارات', en: 'Select Options' })}
-        </button>
       </div>
     </div>
   );
